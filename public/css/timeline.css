@@ -1,0 +1,79 @@
+/* timeline.css */
+.timeline {
+    position: relative;
+}
+
+.timeline-event {
+    display: flex;
+    align-items: flex-start;
+    padding: 20px;
+    border: 1px solid transparent;
+    position: relative;
+    visibility: visible;
+    border-left: 15px solid transparent; /* Add a left border for highlighting */
+}
+
+.timeline-event::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    background: #ccc;
+    transform: translateX(-50%);
+}
+
+.timeline-event-start-date,
+.timeline-event-end-date {
+    flex: 0 0 100px;
+    text-align: center;
+    color: #333;
+    font-weight: bold;
+}
+
+.timeline-event-content {
+    flex: 1;
+    padding: 20px;
+    z-index: 10;
+    background-color: #f7f7f7; /* Add a light gray background color */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+    border-radius: 4px; /* Add rounded corners for a card-like effect */
+}
+
+.timeline-event h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #333; /* Add text color */
+}
+
+.timeline-event p {
+    margin: 0;
+    color: #666; /* Change text color */
+}
+
+.timeline-event::before {
+    background: #ccc;
+}
+
+.timeline-event::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ccc;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    border: 2px solid #fff; /* Add a white border for better visibility */
+}
+
+.timeline-event:first-child::after {
+    top: 0;
+}
+
+.timeline-event:last-child::after {
+    top: 100%;
+}

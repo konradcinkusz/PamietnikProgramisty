@@ -1,0 +1,29 @@
+/* Styling for the custom dropdown */
+.custom-dropdown {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    appearance: none;
+    margin: 10px 0; /* Add margin to separate the dropdown from surrounding elements */
+    cursor: pointer; /* Show a pointer cursor to indicate interactivity */
+}
+
+/* Styling for dropdown options */
+.custom-dropdown option {
+    padding: 10px;
+}
+
+/* Hover effect for options */
+.custom-dropdown option:hover {
+    background-color: #f5f5f5;
+}
+
+/* Highlight the selected option */
+.custom-dropdown option:checked {
+    background-color: #007BFF;
+    color: #fff;
+}
