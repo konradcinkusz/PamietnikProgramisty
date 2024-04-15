@@ -8,6 +8,32 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
+    private function validateEventData(Request $request)
+    {
+        return $request->validate([
+            'name' => 'required|string|max:255',
+            'start_date' => 'required|date|before:end_date',
+            'end_date' => 'required|date|after:start_date',
+            'description' => 'required|string|max:1000',
+            'category_id' => 'required|integer|exists:categories,id',
+        ], [
+            'name.required' => 'The name of the event is required.',
+            'name.max' => 'The name may not be greater than 255 characters.',
+            'start_date.required' => 'You must specify a start date.',
+            'start_date.date' => 'The start date must be a valid date.',
+            'start_date.before' => 'The start date must be before the end date.',
+            'end_date.required' => 'You must specify an end date.',
+            'end_date.date' => 'The end date must be a valid date.',
+            'end_date.after' => 'The end date must be after the start date.',
+            'description.required' => 'Please provide a description for the event.',
+            'description.max' => 'The description may not be greater than 1000 characters.',
+            'category_id.required' => 'You must select a category for the event.',
+            'category_id.integer' => 'The category ID must be an integer.',
+            'category_id.exists' => 'The selected category does not exist.',
+        ]);
+        
+    }
+
     public function deleteEvent(Event $event)
     {
         if (auth()->user()->id === $event->user_id) {
@@ -23,13 +49,7 @@ class EventController extends Controller
             return redirect('/');
         }
 
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date',
-            'description' => 'required',
-            'category_id' => 'required|exists:categories,id',
-        ]);
+        $validatedData = $this->validateEventData($request);
 
         $event->update($validatedData);
         return redirect('/');
@@ -51,13 +71,7 @@ class EventController extends Controller
 
     public function createEvent(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date',
-            'description' => 'required',
-            'category_id' => 'required|exists:categories,id',
-        ]);
+        $validatedData = $this->validateEventData($request);
 
         $validatedData['user_id'] = auth()->id();
 
